@@ -1,10 +1,10 @@
 export class StringCalculator {
-  private numbers: number[];
-  private separators: string[];
+  private _numbers: number[];
+  private _separators: string[];
 
   constructor() {
-    this.numbers = [];
-    this.separators = [',', '\n'];
+    this._numbers = [];
+    this._separators = [',', '\n'];
   }
 
   add(numbers?: string): number {
@@ -19,8 +19,8 @@ export class StringCalculator {
   }
 
   private reset(): void {
-    this.numbers = [];
-    this.separators = [',', '\n'];
+    this._numbers = [];
+    this._separators = [',', '\n'];
   }
 
   private addMySeparators(numbers: string): void {
@@ -33,13 +33,13 @@ export class StringCalculator {
       let reg = /(?<=\[).+?(?=\])/g;
       let sepArray: string[] = sepString.match(reg) || [];
 
-      this.separators = [...this.separators, ...sepArray];
+      this._separators = [...this._separators, ...sepArray];
     }
   }
 
   private parseNumbers(numbers: string): void {
-      this.separators = this.separators.map((sep) => `[${sep}]`);
-      let splitted: string[] = numbers.split(new RegExp(this.separators.join('|'), 'g'));
+      this._separators = this._separators.map((sep) => `[${sep}]`);
+      let splitted: string[] = numbers.split(new RegExp(this._separators.join('|'), 'g'));
       let negNumbers: number[] = [];
 
       for(let nr of splitted) {
@@ -50,7 +50,7 @@ export class StringCalculator {
             negNumbers.push(parsedNumber);
           }
           else if (!this.isGreaterThan1000(parsedNumber)) {
-            this.numbers.push(parsedNumber);
+            this._numbers.push(parsedNumber);
           }
         }
       }
@@ -78,7 +78,7 @@ export class StringCalculator {
   }
 
   private calculateSum(): number {
-    return this.numbers.reduce((sum, nr) => sum += nr, 0);
+    return this._numbers.reduce((sum, nr) => sum += nr, 0);
   }
 }
 
