@@ -51,7 +51,7 @@ describe('StringCalculator', () => {
     });
 
     it('returns_sum_with_different_delimiter', () => {
-      const result = stringCalculator.add("//[;]\n1,2\n3;4;5");
+      const result = stringCalculator.add("//;\n1,2\n3;4;5");
       expect(result).to.be.a('number');
       expect(result).to.equal(15);
     });

@@ -25,11 +25,13 @@ export class StringCalculator {
       return;
     }
 
-    const reg = /(?<=\[).+?(?=\])/g;
+    const regManyOwnSep = /(?<=\[).+?(?=\])/g;
 
-    const sepArray: string[] = numbers
+    const sepString: string = numbers
       .substring(numbers.indexOf("//") + 2, numbers.indexOf("\n"))
-      .match(reg) || []
+
+    const sepArray: string[] = sepString
+      .match(regManyOwnSep) || [sepString]
 
     this._separators = [...this._separators, ...sepArray]
       .map((sep) => escapeRegExp(sep))
