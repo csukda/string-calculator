@@ -1,11 +1,6 @@
 export class StringCalculator {
-  private _numbers: number[];
-  private _separators: string[];
-
-  constructor() {
-    this._numbers = [];
-    this._separators = [',', '\n'];
-  }
+  private _numbers: number[] = [];
+  private _separators: string[] = [',', '\n'];
 
   add(numbers?: string): number {
     if(typeof numbers == 'undefined' && !numbers) {
