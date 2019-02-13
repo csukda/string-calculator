@@ -45,7 +45,7 @@ describe('StringCalculator', () => {
     })
 
     it('returns_sum_with_mixed_separators', () => {
-      const result = stringCalculator.add("1,2\n3,\n4,5");
+      const result = stringCalculator.add("1,2\n3\n4,5");
       expect(result).to.be.a('number');
       expect(result).to.equal(15);
     });

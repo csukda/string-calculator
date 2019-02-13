@@ -1,4 +1,4 @@
-import { isEmpty } from 'lodash';
+import { isEmpty, escapeRegExp } from 'lodash';
 
 export class StringCalculator {
   private _numbers: number[] = [];
@@ -33,47 +33,32 @@ export class StringCalculator {
     let reg = /(?<=\[).+?(?=\])/g;
     let sepArray: string[] = sepString.match(reg) || [];
 
-    this._separators = [...this._separators, ...sepArray];
+    this._separators = [...this._separators, ...sepArray].map((sep) => escapeRegExp(sep));
   }
 
   private parseNumbers(numbers: string): void {
-      this._separators = this._separators.map((sep) => `[${sep}]`);
-      let splitted: string[] = numbers.split(new RegExp(this._separators.join('|'), 'g'));
-      let negNumbers: number[] = [];
+    this._numbers = numbers
+      .split(new RegExp(this._separators.join('|'), 'g'))
+      .filter(this.isNumber)
+      .map((nr) => Number(nr))
+      .filter(this.isNotGreaterThan1000)
 
-      for(let nr of splitted) {
-        if (this.isNumber(nr)) {
-
-          let parsedNumber: number = parseInt(nr);
-          if (this.isNegative(parsedNumber)) {
-            negNumbers.push(parsedNumber);
-          }
-          else if (!this.isGreaterThan1000(parsedNumber)) {
-            this._numbers.push(parsedNumber);
-          }
-        }
-      }
-
-      if (negNumbers.length > 0) {
-        let err: string = `Negatives not allowed: ${negNumbers.join(', ')}`;
-        throw new RangeError(err); 
-      }
+    if (this._numbers.some(this.isNegative)) {
+      let err: string = `Negatives not allowed: ${this._numbers.filter(this.isNegative).join(', ')}`;
+      throw new RangeError(err); 
+    }
   }
 
   private isNumber(nr: string): boolean {
-    let parsedNumber: number = parseInt(nr);
-    if (parsedNumber) {
-      return true;
-    }
-    return false;
+    return !isNaN(Number(nr));
   }
 
   private isNegative(nr: number): boolean {
     return nr < 0;
   }
 
-  private isGreaterThan1000(nr: number): boolean {
-    return nr > 1000;
+  private isNotGreaterThan1000(nr: number): boolean {
+    return nr <= 1000;
   }
 
   private calculateSum(): number {
