@@ -7,7 +7,7 @@ To create this project I executed following commands:
 
 * git init
 * yarn init
-* yarn add typescrip
+* yarn add typescript
 * yarn add mocha
 * yarn add chai
 * yarn add @types/jest
