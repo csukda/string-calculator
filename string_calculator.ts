@@ -31,7 +31,8 @@ export class StringCalculator {
       .substring(numbers.indexOf("//") + 2, numbers.indexOf("\n"))
       .match(reg) || []
 
-    this._separators = [...this._separators, ...sepArray].map((sep) => escapeRegExp(sep))
+    this._separators = [...this._separators, ...sepArray]
+      .map((sep) => escapeRegExp(sep))
   }
 
   private parseNumbers(numbers: string): void {
@@ -60,7 +61,7 @@ export class StringCalculator {
   }
 
   private calculateSum(): number {
-    return this._numbers.reduce((sum, nr) => sum += nr, 0);
+    return this._numbers.reduce((sum, nr) => sum + nr, 0);
   }
 }
 
