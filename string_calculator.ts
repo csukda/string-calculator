@@ -4,8 +4,8 @@ export class StringCalculator {
   private _numbers: number[] = [];
   private _separators: string[] = [',', '\n'];
 
-  add(numbers?: string): number {
-    if(typeof numbers == 'undefined' && !numbers) {
+  add(numbers: string): number {
+    if (isEmpty(numbers)) {
       return 0;
     }
 
