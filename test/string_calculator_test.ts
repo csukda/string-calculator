@@ -6,9 +6,14 @@ import { StringCalculator } from '../string_calculator';
 
 describe('StringCalculator', () => {
 
-  let stringCalculator = new StringCalculator();
-
   describe('add', () => {
+
+    let stringCalculator: StringCalculator;
+
+    beforeEach(() => {
+      stringCalculator = new StringCalculator();
+    });
+
     it('returns_zero_with_empty_string_given', () => {
       const result = stringCalculator.add("");
       expect(result).to.be.a('number');
