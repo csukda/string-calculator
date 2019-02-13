@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 export class StringCalculator {
   private _numbers: number[] = [];
   private _separators: string[] = [',', '\n'];
