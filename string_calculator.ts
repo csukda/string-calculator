@@ -21,17 +21,19 @@ export class StringCalculator {
   }
 
   private addMySeparators(numbers: string): void {
-    if (numbers.indexOf("//") == 0) {
-      let sepString: string = numbers.substring(
-          numbers.indexOf("//") + 2, 
-          numbers.indexOf("\n")
-      );
-
-      let reg = /(?<=\[).+?(?=\])/g;
-      let sepArray: string[] = sepString.match(reg) || [];
-
-      this._separators = [...this._separators, ...sepArray];
+    if (!numbers.startsWith("//")) {
+      return;
     }
+
+    let sepString: string = numbers.substring(
+      numbers.indexOf("//") + 2, 
+      numbers.indexOf("\n")
+    );
+
+    let reg = /(?<=\[).+?(?=\])/g;
+    let sepArray: string[] = sepString.match(reg) || [];
+
+    this._separators = [...this._separators, ...sepArray];
   }
 
   private parseNumbers(numbers: string): void {
