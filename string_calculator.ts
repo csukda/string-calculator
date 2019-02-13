@@ -25,15 +25,13 @@ export class StringCalculator {
       return;
     }
 
-    let sepString: string = numbers.substring(
-      numbers.indexOf("//") + 2, 
-      numbers.indexOf("\n")
-    );
+    const reg = /(?<=\[).+?(?=\])/g;
 
-    let reg = /(?<=\[).+?(?=\])/g;
-    let sepArray: string[] = sepString.match(reg) || [];
+    const sepArray: string[] = numbers
+      .substring(numbers.indexOf("//") + 2, numbers.indexOf("\n"))
+      .match(reg) || []
 
-    this._separators = [...this._separators, ...sepArray].map((sep) => escapeRegExp(sep));
+    this._separators = [...this._separators, ...sepArray].map((sep) => escapeRegExp(sep))
   }
 
   private parseNumbers(numbers: string): void {
@@ -44,7 +42,7 @@ export class StringCalculator {
       .filter(this.isNotGreaterThan1000)
 
     if (this._numbers.some(this.isNegative)) {
-      let err: string = `Negatives not allowed: ${this._numbers.filter(this.isNegative).join(', ')}`;
+      const err: string = `Negatives not allowed: ${this._numbers.filter(this.isNegative).join(', ')}`;
       throw new RangeError(err); 
     }
   }
